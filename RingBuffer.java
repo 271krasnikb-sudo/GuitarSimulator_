@@ -6,38 +6,46 @@
  */
 public class RingBuffer 
 {
+   ArrayQueue<Double> buffer = new ArrayQueue<>();
+   int capacity;
+
 
     public RingBuffer(int capacity)
     {
+        this.capacity = capacity;
     }
 
     public int size()
     {
-        return 0;
+        return buffer.size();
     }
     
     public boolean isEmpty()
     {
-        return false;
+        return buffer.size() == 0;
     }
     
     public boolean isFull()
     {
-        return true;
+        return buffer.size() == capacity;
     }
     
     public void add(double value)
     {
+        if(isFull()){
+            throw new QueueOverflowException("Queue is full");
+        }
+        buffer.add(value);
     }
     
     public double peek()
     {
-        return 0.0;
+        return buffer.peek();
     }
     
     public double remove()
     {
-        return 0.0;
+        return buffer.remove();
     }
     
     // a simple test of the constructor and methods in RingBuffer
