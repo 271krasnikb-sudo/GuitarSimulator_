@@ -10,21 +10,21 @@ public class GuitarString
    private int totalTic;
     public GuitarString(double frequency) 
     {
-        guitar = new RingBuffer((int)(44100/frequency));
-        for(int i = 0; i<guitar.size(); i++){
-            guitar.add(0);
-        }
-        totalTic = 0;
-    }
+       int capacity = (int) (44100 / frequency);
+       guitar = new RingBuffer(capacity);
+       for (int i = 0; i < capacity; i++) {
+           guitar.add(0);
+       }
+       totalTic = 0;
+   }
 
-    public GuitarString(double[] array) 
+    public GuitarString(double[] array)
     {
         guitar = new RingBuffer(array.length);
-        for(int i = 0; i<guitar.size(); i++){
+        for (int i = 0; i < array.length; i++) {
             guitar.add(array[i]);
         }
         totalTic = 0;
-
     }
 
     public void pluck() 
@@ -48,6 +48,7 @@ public class GuitarString
         double value2 = guitar.peek();
         double average = (value1+value2)/2;
         guitar.add(average*.994);
+        totalTic++;
     }
 
     // return the current sample
